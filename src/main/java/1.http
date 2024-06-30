@@ -1,0 +1,4 @@
+### GET request to example server
+GET http://localhost:9000/json
+#    ?generated-in=IntelliJ IDEA
+###
