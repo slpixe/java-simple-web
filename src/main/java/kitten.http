@@ -1,0 +1,6 @@
+### GET request to example server
+GET http://localhost:9000/kitten
+###
+# I GET
+#HTTP/1.1 200 OK
+#{"name":"Bob"}

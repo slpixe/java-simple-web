@@ -1,3 +1,4 @@
+import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
@@ -16,6 +17,7 @@ public class SimpleHttpServer {
         HttpServer server = provider.createHttpServer(new InetSocketAddress(port), 0);
 
         server.createContext("/json", new MyHandler()); // Define your endpoint
+        server.createContext("/kitten", new KittenHandler());
 
         server.start();
         System.out.println("Server started on port " + port);
@@ -35,4 +37,19 @@ public class SimpleHttpServer {
         }
     }
 
+    private static class KittenHandler implements HttpHandler {
+        @Override
+        public void handle(HttpExchange exchange) throws IOException {
+//            String response = "Kitten";
+
+            Kitten bob = new Kitten("Bob");
+            String kittenJson = new Gson().toJson(bob);
+
+            exchange.sendResponseHeaders(200, kittenJson.getBytes().length);
+
+            try (OutputStream os = exchange.getResponseBody()) {
+                os.write(kittenJson.getBytes());
+            }
+        }
+    }
 }
