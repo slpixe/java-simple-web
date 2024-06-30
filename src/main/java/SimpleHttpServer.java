@@ -16,7 +16,7 @@ public class SimpleHttpServer {
         HttpServerProvider provider = HttpServerProvider.provider();
         HttpServer server = provider.createHttpServer(new InetSocketAddress(port), 0);
 
-        server.createContext("/json", new MyHandler()); // Define your endpoint
+        server.createContext("/json", new MyHandler());
         server.createContext("/kitten", new KittenHandler());
 
         server.start();
@@ -40,8 +40,6 @@ public class SimpleHttpServer {
     private static class KittenHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
-//            String response = "Kitten";
-
             Kitten bob = new Kitten("Bob");
             String kittenJson = new Gson().toJson(bob);
 
